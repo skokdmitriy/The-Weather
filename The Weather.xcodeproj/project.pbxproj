@@ -17,6 +17,7 @@
 		1BB8CA1629E9B2610088DEF7 /* WeatherViewController+alertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB8CA1529E9B2610088DEF7 /* WeatherViewController+alertController.swift */; };
 		1BB8CA1A29E9B37D0088DEF7 /* NetworkWeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB8CA1929E9B37D0088DEF7 /* NetworkWeatherManager.swift */; };
 		1BEDB4E429F8208000901226 /* CurrentWeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BEDB4E329F8207F00901226 /* CurrentWeatherData.swift */; };
+		1BEDB4E729F82ED500901226 /* CurrentWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BEDB4E629F82ED400901226 /* CurrentWeather.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		1BB8CA1529E9B2610088DEF7 /* WeatherViewController+alertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WeatherViewController+alertController.swift"; sourceTree = "<group>"; };
 		1BB8CA1929E9B37D0088DEF7 /* NetworkWeatherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkWeatherManager.swift; sourceTree = "<group>"; };
 		1BEDB4E329F8207F00901226 /* CurrentWeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherData.swift; sourceTree = "<group>"; };
+		1BEDB4E629F82ED400901226 /* CurrentWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeather.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				1BEDB4E329F8207F00901226 /* CurrentWeatherData.swift */,
+				1BEDB4E629F82ED400901226 /* CurrentWeather.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -228,6 +231,7 @@
 			files = (
 				1BB8CA1629E9B2610088DEF7 /* WeatherViewController+alertController.swift in Sources */,
 				1BB8CA1A29E9B37D0088DEF7 /* NetworkWeatherManager.swift in Sources */,
+				1BEDB4E729F82ED500901226 /* CurrentWeather.swift in Sources */,
 				1BB8CA1029E9AE560088DEF7 /* WeatherViewController.swift in Sources */,
 				1BB8CA1229E9B1AF0088DEF7 /* UILabel+Extension.swift in Sources */,
 				1BB8C9F529E9A7190088DEF7 /* AppDelegate.swift in Sources */,
