@@ -22,6 +22,7 @@ class WeatherViewController: UIViewController {
         let image = UIImageView()
         image.image = UIImage(systemName: "cloud.sun.rain.fill")
         image.tintColor = UIColor.white
+        image.contentMode = .scaleAspectFit
         return image
     }()
     

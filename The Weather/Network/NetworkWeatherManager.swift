@@ -10,6 +10,7 @@ import Foundation
 let apiKey = "de876f95487677a4c16171d8abf780c4"
 
 struct NetworkWeatherManager {
+    
     func fetchCurrentWeather(forCity city: String) {
         let urlString = "https://api.openweathermap.org/data/2.5/weather?q=\(city)&appid=\(apiKey)"
         guard let url = URL(string: urlString) else { return }
@@ -18,12 +19,20 @@ struct NetworkWeatherManager {
             let session = URLSession(configuration: config)
             return session
         }()
-        let task = session.dataTask(with: url) { data, response, Error in
+        let task = session.dataTask(with: url) { data, response, error in
             if let data = data {
-                let dataString = String(data: data, encoding: .utf8)
-                print(dataString!)
+                self.parseJSON(withData: data)
             }
         }
         task.resume()
+    }
+    
+    func parseJSON(withData data: Data) {
+        let decoder = JSONDecoder()
+        do {
+            let currentWeatherData = try decoder.decode(CurrentWeatherData.self, from: data)
+        } catch let error {
+            print(error)
+        }
     }
 }
