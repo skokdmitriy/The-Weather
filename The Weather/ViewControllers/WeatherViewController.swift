@@ -32,7 +32,7 @@ class WeatherViewController: UIViewController {
     private lazy var temperatureStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.distribution = .fillProportionally
+//        stackView.distribution = .fillProportionally
         stackView.spacing = 3
         stackView.addArrangedSubview(temperatureLabel)
         stackView.addArrangedSubview(celsiusLabel)
@@ -75,23 +75,35 @@ class WeatherViewController: UIViewController {
     
     var networkWeatherManager = NetworkWeatherManager()
     
-//    MARK: = ViewDidLoad
+//    MARK: - ViewDidLoad
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
-        networkWeatherManager.onCompletion = { currentWeather in
-            print(currentWeather.cityName)
+        networkWeatherManager.onCompletion = { [weak self] currentWeather in
+            guard let self = self else { return }
+            self.updateInterfaceWith(weather: currentWeather)
         }
+        
         networkWeatherManager.fetchCurrentWeather(forCity: "London")
         searchButton.addTarget(self, action: #selector(searchButtonAction), for: .touchUpInside)
 
     }
     
+    func updateInterfaceWith(weather: CurrentWeather) {
+        DispatchQueue.main.async {
+            self.cityLabel.text = weather.cityName
+            self.temperatureLabel.text = weather.temperatureString
+            self.feelsLikeTemperatureLabel.text = weather.feelsLikeTemperatureString
+            self.weatherIconImageView.image = UIImage(systemName: weather.systemIconNameString)
+        }
+    }
+    
 //    MARK: - @objc Methods
     
     @objc private func searchButtonAction() {
-        self.presentSearchAlertController(withTitle: "Enter city name", message: nil, style: .alert) { city in
+        self.presentSearchAlertController(withTitle: "Enter city name", message: nil, style: .alert) { [weak self] city in
+            guard let self = self else { return }
             self.networkWeatherManager.fetchCurrentWeather(forCity: city)
         }
     }
