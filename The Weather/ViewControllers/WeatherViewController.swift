@@ -73,13 +73,16 @@ class WeatherViewController: UIViewController {
     
 //    MARK: - Properties
     
-    let networkWeatherManager = NetworkWeatherManager()
+    var networkWeatherManager = NetworkWeatherManager()
     
 //    MARK: = ViewDidLoad
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
+        networkWeatherManager.onCompletion = { currentWeather in
+            print(currentWeather.cityName)
+        }
         networkWeatherManager.fetchCurrentWeather(forCity: "London")
         searchButton.addTarget(self, action: #selector(searchButtonAction), for: .touchUpInside)
 
@@ -93,7 +96,7 @@ class WeatherViewController: UIViewController {
         }
     }
 
-//    MARK: = UI
+//    MARK: - UI
     
     private func setupLayout() {
         view.addSubview(backgroundImage)
