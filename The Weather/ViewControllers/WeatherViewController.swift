@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import CoreLocation
 
 class WeatherViewController: UIViewController {
     
@@ -32,7 +33,6 @@ class WeatherViewController: UIViewController {
     private lazy var temperatureStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-//        stackView.distribution = .fillProportionally
         stackView.spacing = 3
         stackView.addArrangedSubview(temperatureLabel)
         stackView.addArrangedSubview(celsiusLabel)
@@ -74,6 +74,12 @@ class WeatherViewController: UIViewController {
 //    MARK: - Properties
     
     var networkWeatherManager = NetworkWeatherManager()
+    lazy var locationManager: CLLocationManager = {
+        let lm = CLLocationManager()
+        lm.delegate = self
+        lm.requestWhenInUseAuthorization()
+        return lm
+    }()
     
 //    MARK: - ViewDidLoad
     
@@ -85,9 +91,11 @@ class WeatherViewController: UIViewController {
             self.updateInterfaceWith(weather: currentWeather)
         }
         
-        networkWeatherManager.fetchCurrentWeather(forCity: "London")
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.requestLocation()
+        }
+        
         searchButton.addTarget(self, action: #selector(searchButtonAction), for: .touchUpInside)
-
     }
     
     func updateInterfaceWith(weather: CurrentWeather) {
@@ -141,3 +149,18 @@ class WeatherViewController: UIViewController {
     }
 }
 
+//    MARK: - CLLocationManagerDelegate
+
+extension WeatherViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.last else { return }
+        let latitude = location.coordinate.latitude
+        let longitude = location.coordinate.longitude
+        
+//        networkWeatherManager.fetchCurrentWeather(forCity: <#T##String#>)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
+    }
+}
