@@ -21,13 +21,13 @@ class WeatherViewController: UIViewController {
     
     var weatherIconImageView: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(systemName: "cloud.sun.rain.fill")
+        image.image = UIImage(systemName: "nosign")
         image.tintColor = UIColor.white
         image.contentMode = .scaleAspectFit
         return image
     }()
     
-    let temperatureLabel = UILabel(text: "25", font: .boldSystemFont(ofSize: 49), textAlignment: .right)
+    let temperatureLabel = UILabel(text: "0", font: .boldSystemFont(ofSize: 49), textAlignment: .right)
     let celsiusLabel = UILabel(text: "℃", font: .boldSystemFont(ofSize: 49))
     
     private lazy var temperatureStackView: UIStackView = {
@@ -40,7 +40,7 @@ class WeatherViewController: UIViewController {
     }()
     
     let feelsLikeLabel = UILabel(text: "FeelsLike", font: .italicSystemFont(ofSize: 13), textAlignment: .right)
-    var feelsLikeTemperatureLabel = UILabel(text: "23 ℃", font: .italicSystemFont(ofSize: 13))
+    var feelsLikeTemperatureLabel = UILabel(text: "0"+"℃", font: .italicSystemFont(ofSize: 13))
     
     private lazy var feelsLikeStackView: UIStackView = {
         let stackView = UIStackView()
@@ -52,7 +52,7 @@ class WeatherViewController: UIViewController {
         return stackView
     }()
     
-    var cityLabel = UILabel(text: "Tomsk", font: .systemFont(ofSize: 26), textAlignment: .right)
+    var cityLabel = UILabel(text: "default", font: .systemFont(ofSize: 26), textAlignment: .right)
     
     let searchButton: UIButton = {
         var button = UIButton()
@@ -112,7 +112,7 @@ class WeatherViewController: UIViewController {
     @objc private func searchButtonAction() {
         self.presentSearchAlertController(withTitle: "Enter city name", message: nil, style: .alert) { [weak self] city in
             guard let self = self else { return }
-            self.networkWeatherManager.fetchCurrentWeather(forCity: city)
+            self.networkWeatherManager.fetchCurrentWeather(forRequestType: .cityName(city: city))
         }
     }
 
@@ -142,7 +142,7 @@ class WeatherViewController: UIViewController {
                 
         view.addSubview(searchButton)
         searchButton.snp.makeConstraints { make in
-            make.width.height.equalTo(25)
+            make.width.height.equalTo(50)
             make.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing).offset(-16)
             make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-20)
         }
@@ -157,7 +157,7 @@ extension WeatherViewController: CLLocationManagerDelegate {
         let latitude = location.coordinate.latitude
         let longitude = location.coordinate.longitude
         
-//        networkWeatherManager.fetchCurrentWeather(forCity: <#T##String#>)
+        networkWeatherManager.fetchCurrentWeather(forRequestType: .coordinate(latitude: latitude, longitude: longitude))
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

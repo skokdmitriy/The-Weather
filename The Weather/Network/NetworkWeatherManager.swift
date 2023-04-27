@@ -8,9 +8,14 @@
 import Foundation
 import CoreLocation
 
-struct NetworkWeatherManager {
+class NetworkWeatherManager {
     
-   fileprivate let session: URLSession = {
+    enum RequestType {
+        case cityName(city: String)
+        case coordinate(latitude: CLLocationDegrees, longitude: CLLocationDegrees)
+    }
+    
+    fileprivate let session: URLSession = {
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
         return session
@@ -18,18 +23,18 @@ struct NetworkWeatherManager {
     
     var onCompletion: ((CurrentWeather) -> Void)?
     
-    func fetchCurrentWeather(forCity city: String) {
-        let urlString = "https://api.openweathermap.org/data/2.5/weather?q=\(city)&appid=\(apiKey)&units=metric"
+    func fetchCurrentWeather(forRequestType requestType: RequestType) {
+        var urlString = ""
+        switch requestType {
+        case .cityName(let city):
+            urlString = "https://api.openweathermap.org/data/2.5/weather?q=\(city)&appid=\(apiKey)&units=metric"
+        case .coordinate(let latitude, let longitude):
+            urlString = "https://api.openweathermap.org/data/2.5/weather?lat=\(latitude)&lon=\(longitude)&appid=\(apiKey)&units=metric"
+        }
         perFormRequest(withURLString: urlString)
     }
     
-    func fetchCurrentWeather(for latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
-        let urlString = "https://api.openweathermap.org/data/2.5/weather?lat=\(latitude)&lon=\(longitude)&appid=\(apiKey)&units=metric"
-        perFormRequest(withURLString: urlString)
-
-    }
-    
-   fileprivate func perFormRequest(withURLString urlString: String) {
+    fileprivate func perFormRequest(withURLString urlString: String) {
         guard let url = URL(string: urlString) else { return }
         let task = session.dataTask(with: url) { data, response, error in
             if let data = data {
