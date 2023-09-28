@@ -8,12 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		1BB8C9F529E9A7190088DEF7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB8C9F429E9A7190088DEF7 /* AppDelegate.swift */; };
-		1BB8C9F729E9A7190088DEF7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB8C9F629E9A7190088DEF7 /* SceneDelegate.swift */; };
 		1BB8C9FE29E9A7240088DEF7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BB8C9FD29E9A7240088DEF7 /* Assets.xcassets */; };
 		1BB8CA0129E9A7240088DEF7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BB8C9FF29E9A7240088DEF7 /* LaunchScreen.storyboard */; };
 		1BB8CA0E29E9AA630088DEF7 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1BB8CA0D29E9AA630088DEF7 /* SnapKit */; };
 		1BB8CA1029E9AE560088DEF7 /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB8CA0F29E9AE560088DEF7 /* WeatherViewController.swift */; };
-		1BB8CA1229E9B1AF0088DEF7 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB8CA1129E9B1AF0088DEF7 /* UILabel+Extension.swift */; };
 		1BB8CA1629E9B2610088DEF7 /* WeatherViewController+alertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB8CA1529E9B2610088DEF7 /* WeatherViewController+alertController.swift */; };
 		1BB8CA1A29E9B37D0088DEF7 /* NetworkWeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB8CA1929E9B37D0088DEF7 /* NetworkWeatherManager.swift */; };
 		1BD220B429F974D000FD4271 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD220B329F974D000FD4271 /* Constants.swift */; };
@@ -24,12 +22,10 @@
 /* Begin PBXFileReference section */
 		1BB8C9F129E9A7190088DEF7 /* The Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "The Weather.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BB8C9F429E9A7190088DEF7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1BB8C9F629E9A7190088DEF7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		1BB8C9FD29E9A7240088DEF7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1BB8CA0029E9A7240088DEF7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1BB8CA0229E9A7240088DEF7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1BB8CA0F29E9AE560088DEF7 /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
-		1BB8CA1129E9B1AF0088DEF7 /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		1BB8CA1529E9B2610088DEF7 /* WeatherViewController+alertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WeatherViewController+alertController.swift"; sourceTree = "<group>"; };
 		1BB8CA1929E9B37D0088DEF7 /* NetworkWeatherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkWeatherManager.swift; sourceTree = "<group>"; };
 		1BD220B329F974D000FD4271 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -49,6 +45,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1B57EBC82AC47CEF00E720E4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		1BB8C9E829E9A7190088DEF7 = {
 			isa = PBXGroup;
 			children = (
@@ -68,11 +71,12 @@
 		1BB8C9F329E9A7190088DEF7 /* The Weather */ = {
 			isa = PBXGroup;
 			children = (
-				1BB8CA1729E9B3000088DEF7 /* Extension */,
+				1BB8CA0829E9A79B0088DEF7 /* Application */,
+				1BB8CA1729E9B3000088DEF7 /* Utilities */,
 				1BB8CA1829E9B3370088DEF7 /* Network */,
 				1BEDB4E529F8208900901226 /* Model */,
-				1BB8CA0B29E9A9280088DEF7 /* ViewControllers */,
-				1BB8CA0829E9A79B0088DEF7 /* Application */,
+				1BB8CA0B29E9A9280088DEF7 /* View */,
+				1B57EBC82AC47CEF00E720E4 /* ViewModel */,
 				1BB8CA0929E9A8F80088DEF7 /* Resources */,
 				1BB8CA0A29E9A9130088DEF7 /* SupportingFiles */,
 			);
@@ -83,7 +87,6 @@
 			isa = PBXGroup;
 			children = (
 				1BB8C9F429E9A7190088DEF7 /* AppDelegate.swift */,
-				1BB8C9F629E9A7190088DEF7 /* SceneDelegate.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -106,20 +109,12 @@
 			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
-		1BB8CA0B29E9A9280088DEF7 /* ViewControllers */ = {
+		1BB8CA0B29E9A9280088DEF7 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				1BB8CA0F29E9AE560088DEF7 /* WeatherViewController.swift */,
 			);
-			path = ViewControllers;
-			sourceTree = "<group>";
-		};
-		1BB8CA1329E9B1DE0088DEF7 /* UiKit */ = {
-			isa = PBXGroup;
-			children = (
-				1BB8CA1129E9B1AF0088DEF7 /* UILabel+Extension.swift */,
-			);
-			path = UiKit;
+			path = View;
 			sourceTree = "<group>";
 		};
 		1BB8CA1429E9B21B0088DEF7 /* Alert */ = {
@@ -130,13 +125,12 @@
 			path = Alert;
 			sourceTree = "<group>";
 		};
-		1BB8CA1729E9B3000088DEF7 /* Extension */ = {
+		1BB8CA1729E9B3000088DEF7 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				1BB8CA1329E9B1DE0088DEF7 /* UiKit */,
 				1BB8CA1429E9B21B0088DEF7 /* Alert */,
 			);
-			path = Extension;
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		1BB8CA1829E9B3370088DEF7 /* Network */ = {
@@ -187,7 +181,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1320;
-				LastUpgradeCheck = 1320;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					1BB8C9F029E9A7190088DEF7 = {
 						CreatedOnToolsVersion = 13.2;
@@ -236,10 +230,8 @@
 				1BB8CA1A29E9B37D0088DEF7 /* NetworkWeatherManager.swift in Sources */,
 				1BEDB4E729F82ED500901226 /* CurrentWeather.swift in Sources */,
 				1BB8CA1029E9AE560088DEF7 /* WeatherViewController.swift in Sources */,
-				1BB8CA1229E9B1AF0088DEF7 /* UILabel+Extension.swift in Sources */,
 				1BB8C9F529E9A7190088DEF7 /* AppDelegate.swift in Sources */,
 				1BEDB4E429F8208000901226 /* CurrentWeatherData.swift in Sources */,
-				1BB8C9F729E9A7190088DEF7 /* SceneDelegate.swift in Sources */,
 				1BD220B429F974D000FD4271 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -295,6 +287,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -309,7 +302,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -356,6 +349,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -364,7 +358,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

@@ -18,7 +18,9 @@ extension WeatherViewController{
         
         let search = UIAlertAction( title: "Search", style: .default) { action in
             let textField = alertController.textFields?.first
-            guard let cityName = textField?.text else { return }
+            guard let cityName = textField?.text else {
+                return
+            }
             if cityName != "" {
                 let city = cityName.split(separator: " ").joined(separator: "%20")
                 completionHandler(city)
@@ -26,7 +28,6 @@ extension WeatherViewController{
         }
         
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        
         alertController.addAction(search)
         alertController.addAction(cancel)
         present(alertController, animated: true, completion: nil)

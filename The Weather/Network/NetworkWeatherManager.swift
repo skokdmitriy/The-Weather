@@ -8,53 +8,80 @@
 import Foundation
 import CoreLocation
 
-class NetworkWeatherManager {
-    
-    enum RequestType {
-        case cityName(city: String)
-        case coordinate(latitude: CLLocationDegrees, longitude: CLLocationDegrees)
-    }
-    
-    fileprivate let session: URLSession = {
-        let config = URLSessionConfiguration.default
-        let session = URLSession(configuration: config)
-        return session
-    }()
-    
-    var onCompletion: ((CurrentWeather) -> Void)?
-    
-    func fetchCurrentWeather(forRequestType requestType: RequestType) {
-        var urlString = ""
+enum NetworkError: Error {
+    case parseError
+    case requestError(Error)
+}
+
+enum RequestType {
+    case cityName(city: String)
+    case coordinate(latitude: CLLocationDegrees, longitude: CLLocationDegrees)
+}
+
+final class NetworkWeatherManager {
+    private let session = URLSession.shared
+    typealias onCompletion = (Result<CurrentWeatherData, NetworkError>) -> Void
+
+    func fetchCurrentWeather(
+        forRequestType requestType: RequestType,
+        url: URL,
+        completion: @escaping onCompletion
+    ) {
+        var url: URL
+
         switch requestType {
         case .cityName(let city):
-            urlString = "https://api.openweathermap.org/data/2.5/weather?q=\(city)&appid=\(apiKey)&units=metric"
+            let params = ["q": city]
+            url = configureUrl(params: params)
         case .coordinate(let latitude, let longitude):
-            urlString = "https://api.openweathermap.org/data/2.5/weather?lat=\(latitude)&lon=\(longitude)&appid=\(apiKey)&units=metric"
+            let params = [
+                "lat": String(latitude),
+                "lon": String(longitude)
+            ]
+            url = configureUrl(params: params)
         }
-        perFormRequest(withURLString: urlString)
-    }
-    
-    fileprivate func perFormRequest(withURLString urlString: String) {
-        guard let url = URL(string: urlString) else { return }
-        let task = session.dataTask(with: url) { data, response, error in
-            if let data = data {
-                if let currentWeather = self.parseJSON(withData: data) {
-                    self.onCompletion?(currentWeather)
-                }
+
+        let task = session.dataTask(with: url) { data, _, error in
+            if let error {
+                completion(.failure(.requestError(error)))
+            }
+
+            guard let data else {
+                return
+            }
+
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            do {
+                let result = try decoder.decode(CurrentWeatherData.self, from: data)
+                return completion(.success(result))
+            } catch {
+                completion(.failure(.parseError))
             }
         }
         task.resume()
     }
-    
-    fileprivate func parseJSON(withData data: Data) -> CurrentWeather? {
-        let decoder = JSONDecoder()
-        do {
-            let currentWeatherData = try decoder.decode(CurrentWeatherData.self, from: data)
-            guard let currentWeather = CurrentWeather(currentWeatherData: currentWeatherData) else { return nil }
-            return currentWeather
-        } catch let error {
-            print(error)
+}
+
+private extension NetworkWeatherManager {
+    func configureUrl(params: [String: String]) -> URL {
+        var queryItems = [URLQueryItem]()
+        params.forEach { (name, value) in
+            queryItems.append(URLQueryItem(name: name, value: value))
         }
-        return nil
+        queryItems.append(URLQueryItem(name: "appid", value: Constants.apiKey))
+        queryItems.append(URLQueryItem(name: "units", value: "metric"))
+
+        var urlComponents = URLComponents()
+        urlComponents.scheme = Constants.scheme
+        urlComponents.host = Constants.host
+        urlComponents.path = Constants.path
+        urlComponents.queryItems = queryItems
+
+        guard let url = urlComponents.url else {
+            fatalError("URL invalid")
+        }
+        return url
     }
 }
+
